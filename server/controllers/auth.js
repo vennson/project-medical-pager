@@ -11,10 +11,7 @@ const api_key = process.env.STREAM_API_KEY
 const api_secret = process.env.STREAM_API_SECRET
 const app_id = process.env.STREAM_APP_ID
 
-// console.log(`api_key`, api_key)
-
 const signUp = async (req, res) => {
-  console.log('here1')
   try {
     const { fullName, username, password, phoneNumber } = req.body
     
