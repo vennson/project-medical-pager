@@ -22,31 +22,17 @@ const Auth = () => {
     setForm({...form, [e.target.name]: e.target.value})
   }
 
-  const testPost = async () => {
-    await axios.get('http://localhost:5000/auth/testOne', {
-      data: 'test'
-    })
-    .then(res => {
-      console.log(res)
-    })
-    .catch(err => {
-      console.log(err)
-    })
-  }
-
   const handleSubmit = async (e) => {
     e.preventDefault()
 
-    const { fullName, username, password, phoneNumber, avatarURL } = form
-    const URL = 'http://localhost:5000/auth'
+    const { username, password, phoneNumber, avatarURL } = form
+    const URL = 'https://medical-pager-vennson.herokuapp.com/auth'
 
-    console.log(`${URL}/${isSignUp ? 'signUp' : 'logIn'}`)
-    const { data: { token, userId, hashedPassword } } = await axios.post(
+    const { data: { token, userId, hashedPassword, fullName } } = await axios.post(
       `${URL}/${isSignUp ? 'signUp' : 'logIn'}`, 
-      { fullName, username, password, phoneNumber, avatarURL }
+      { fullName: form.fullName, username, password, phoneNumber, avatarURL }
     )
 
-    console.log('after axios.post')
     cookies.set('token', token) 
     cookies.set('username', username) 
     cookies.set('fullName', fullName) 
